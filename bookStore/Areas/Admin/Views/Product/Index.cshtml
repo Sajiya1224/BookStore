@@ -1,0 +1,42 @@
+﻿@model List<Product>
+@{
+    ViewData["Title"] = "Product Page";
+}
+
+
+<div class="card">
+
+    <div class="card-header bg-primary bg-gradient m-lg-0 py-3 text-center">
+        <h2 class="text-white">Product List</h2>
+    </div>
+
+    <div class="col-12 p-2 text-end">
+        <a class="btn btn-success" asp-controller="Product" asp-action="Upsert"> <i class="bi bi-plus-circle"> Add Product</i></a>
+    </div>
+
+
+    <div class="card-body p-3">
+        <table id="tblData" class="table table-bordered table-striped display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>ISBN</th>
+                    <th>List Price</th>
+                    <th>Availability</th>
+                    <th>Category</th>
+                    <th></th>
+                </tr>             
+            </thead>
+        </table>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/js/product.js"></script>
+}
+
+
+
+
