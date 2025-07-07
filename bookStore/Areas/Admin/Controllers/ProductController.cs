@@ -1,7 +1,9 @@
 ﻿using book.dataAccess.data;
-using book.dataAccess.Repository;
+using book.dataAccess.Repository.IRepository;
 using book.Model;
 using book.Model.View_model;
+using book.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -9,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace bookStore.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    //[Authorize(Roles = SD.Role_Admin)]
     public class ProductController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

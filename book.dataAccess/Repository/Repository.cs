@@ -8,7 +8,7 @@ using book.dataAccess.data;
 using book.dataAccess.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 
-namespace book.dataAccess.Repository.IRepository
+namespace book.dataAccess.Repository
 {
     public class Repository<T> : IRepository<T> where T : class
     {
@@ -18,9 +18,9 @@ namespace book.dataAccess.Repository.IRepository
         public Repository(ApplicationDbContext db)
         {
             _db = db;
-            this.dbSet = _db.Set<T>();
+            dbSet = _db.Set<T>();
 
-            _db.products.Include(u => u.Category).Include(u=> u.CategoryId);
+            _db.products.Include(u => u.Category).Include(u => u.CategoryId);
         }
 
 
@@ -56,7 +56,7 @@ namespace book.dataAccess.Repository.IRepository
                 }
             }
             return query.ToList();
-        }
+        } 
 
         public void Remove(T entity)
         {
