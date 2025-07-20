@@ -13,7 +13,7 @@ namespace book.dataAccess.Repository.IRepository
         ICompanyRepository company { get; }
         IShoppingCartRepository shoppingCart { get; }
         IApplicationUserRepository applicationUser { get; }
-        IOrderHeaderRepository orderHeader { get; }
+        IOrderHeaderRepository orderHeaders { get; }
         IOrderDetailRepository orderDetail { get; }
         void Save();
     }

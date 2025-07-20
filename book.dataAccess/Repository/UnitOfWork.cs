@@ -19,7 +19,7 @@ namespace book.dataAccess.Repository
         public ICategoryRepository category { get; private set; }
         public ICompanyRepository company { get; private set; }
         public IProductRepository product { get; private set; }
-        public IOrderHeaderRepository orderHeader { get; private set; }
+        public IOrderHeaderRepository orderHeaders { get; private set; }
         public IOrderDetailRepository orderDetail { get; private set; }
 
 
@@ -31,7 +31,7 @@ namespace book.dataAccess.Repository
             company = new CompanyRepisitory(_db);
             shoppingCart = new ShoppingCartRepository(_db);
             applicationUser = new ApplicationUserRepository(_db);
-            orderHeader = new OrderHeaderRepository(_db);
+            orderHeaders = new OrderHeaderRepository(_db);
             orderDetail = new OrderDetailRepository(_db);
         }
 

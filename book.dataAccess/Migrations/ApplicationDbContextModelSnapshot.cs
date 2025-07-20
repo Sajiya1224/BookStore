@@ -439,6 +439,9 @@ namespace book.dataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("SessionId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("ShippingDate")
                         .HasColumnType("datetime2");
 
@@ -614,7 +617,7 @@ namespace book.dataAccess.Migrations
                             Author = "Gillian Flynn",
                             Availability = true,
                             CategoryId = 2,
-                            Description = ": A psychological thriller that explores the complexities of marriage and deception, centering on Nick and Amy Dunne, whose lives unravel when Amy goes missing on their anniversary.",
+                            Description = " A psychological thriller that explores the complexities of marriage and deception, centering on Nick and Amy Dunne, whose lives unravel when Amy goes missing on their anniversary.",
                             ISBN = "978-0307588364",
                             ImgUrl = "",
                             ListPrice = 50.0,

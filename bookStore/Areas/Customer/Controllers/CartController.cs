@@ -1,8 +1,10 @@
 ﻿using book.dataAccess.Repository.IRepository;
 using book.Model;
 using book.Model.View_model;
+using book.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System.Security.Claims;
 
 namespace bookStore.Areas.Customer.Controllers
@@ -12,6 +14,7 @@ namespace bookStore.Areas.Customer.Controllers
     public class CartController : Controller
     {
         public IUnitOfWork _unitOfWork;
+        [BindProperty]
         public ShoppingCartVM ShoppingCartVM { get; set; }
         public CartController(IUnitOfWork unitOfWork) {
             _unitOfWork = unitOfWork;
@@ -65,6 +68,134 @@ namespace bookStore.Areas.Customer.Controllers
 
             return View(ShoppingCartVM);
         }
+
+        [HttpPost]
+        [ActionName("Summary")]
+        public IActionResult SummaryPOST()
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var UserId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            ShoppingCartVM.ShoppingCartList = _unitOfWork.shoppingCart.GetAll(u => u.ApplicationUserId == UserId,
+                includeProperties: "Product");
+
+            ShoppingCartVM.OrderHeader.OrderDate = System.DateTime.Now;
+            ShoppingCartVM.OrderHeader.ApplicationUserId = UserId;
+
+            ApplicationUser applicationUser = _unitOfWork.applicationUser.Get(u => u.Id == UserId);
+
+            foreach (var cart in ShoppingCartVM.ShoppingCartList)
+            {
+                cart.Price = GetPriceBasedOnQty(cart);
+                ShoppingCartVM.OrderHeader.OrderTotal += (cart.Price * cart.Count);
+            }
+
+            if (applicationUser.CompanyId.GetValueOrDefault() == 0)
+            {//if value is 0, it is customer account 
+                ShoppingCartVM.OrderHeader.PaymentStatus = SD.PaymentStatusPending;
+                ShoppingCartVM.OrderHeader.OrderStatus = SD.StatusPending;
+            }
+            else
+            {// if value not 0 then it is company account  
+                ShoppingCartVM.OrderHeader.PaymentStatus = SD.PaymentStatusDelayedPayment;
+                ShoppingCartVM.OrderHeader.OrderStatus = SD.StatusApproved;
+            }
+
+            _unitOfWork.orderHeaders.Add(ShoppingCartVM.OrderHeader);
+            _unitOfWork.Save();
+
+            foreach(var cart in ShoppingCartVM.ShoppingCartList)
+            {
+                OrderDetail orderDetails = new()
+                {
+                    ProductId = cart.ProductId,
+                    OrderHeaderId = ShoppingCartVM.OrderHeader.Id,
+                    Price = cart.Price,
+                    Count = cart.Count
+                };
+                _unitOfWork.orderDetail.Add(orderDetails);
+                _unitOfWork.Save();
+            }
+
+            if (applicationUser.CompanyId.GetValueOrDefault() == 0)
+            {//if value is 0 then it is customer account and customer should first pay then proceed
+             // stripe logic for payment
+
+                var domain = "https://localhost:7232/";
+                var options = new Stripe.Checkout.SessionCreateOptions
+                {
+                    SuccessUrl = domain+ $"customer/cart/OrderConfirmation?id={ShoppingCartVM.OrderHeader.Id}",
+                    CancelUrl = domain+ $"customer/cart/index",
+                    LineItems = new List<Stripe.Checkout.SessionLineItemOptions>(),
+                    Mode = "payment",
+                };
+
+                foreach(var item in ShoppingCartVM.ShoppingCartList)
+                {
+                    var sessionLineItem = new Stripe.Checkout.SessionLineItemOptions
+                    {
+                        PriceData = new Stripe.Checkout.SessionLineItemPriceDataOptions()
+                        {
+                            UnitAmount = (long)(item.Price * 100),
+                            Currency = "usd",
+                            ProductData = new Stripe.Checkout.SessionLineItemPriceDataProductDataOptions()
+                            {
+                                Name = item.Product.Title
+                            }
+                        },
+                        Quantity = item.Count
+                    };
+                    options.LineItems.Add(sessionLineItem);
+                }
+
+                var service = new Stripe.Checkout.SessionService();
+                Stripe.Checkout.Session session = service.Create(options);
+                _unitOfWork.orderHeaders.UpdateStripePaymentId(ShoppingCartVM.OrderHeader.Id, session.Id, session.PaymentIntentId);
+                _unitOfWork.Save();
+                Response.Headers.Add("Location", session.Url);
+                return new StatusCodeResult(303);
+
+
+            }
+            //else
+            //{// if value not 0 then it is company account and they have 30 days to pay 
+
+            //}
+            return RedirectToAction(nameof(OrderConfirmation), new {id = ShoppingCartVM.OrderHeader.Id});
+        }
+
+
+        public IActionResult OrderConfirmation(int id)
+        {
+            OrderHeader orderHeader = _unitOfWork.orderHeaders.Get(u => u.Id == id, includeProperties: "ApplicationUser");
+            if (orderHeader.PaymentStatus != SD.PaymentStatusDelayedPayment)
+            {
+                // it is order by customer bcoz in order by company payment is delayed
+                var service = new Stripe.Checkout.SessionService();
+                Stripe.Checkout.Session session = service.Get(orderHeader.SessionId);
+
+                if (session.PaymentStatus.ToLower() == "paid")
+                {
+                    _unitOfWork.orderHeaders.UpdateStripePaymentId(id, session.Id, session.PaymentIntentId);
+                    _unitOfWork.orderHeaders.UpdateStatus(id, SD.StatusApproved, SD.PaymentStatusApproved);
+                    _unitOfWork.Save();
+                }
+            }
+
+            List<ShoppingCart> shoppingCarts = _unitOfWork.shoppingCart
+            .GetAll(u => u.ApplicationUserId == orderHeader.ApplicationUserId).ToList();
+
+            foreach (var cartItem in shoppingCarts)
+            {
+                _unitOfWork.shoppingCart.Remove(cartItem);
+            } // Ensure RemoveRange is implemented
+
+            _unitOfWork.Save(); // Save changes
+
+            return View(id);
+
+        }
+
+
 
         public IActionResult plus(int cartId)
         {

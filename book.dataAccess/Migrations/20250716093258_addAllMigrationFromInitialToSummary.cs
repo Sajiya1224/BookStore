@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace book.dataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class addAllMigrationFromInitialToOrderHeaderAndDetailsWithSeedData : Migration
+    public partial class addAllMigrationFromInitialToSummary : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -356,7 +356,7 @@ namespace book.dataAccess.Migrations
                     { 4, "Paulo Coelho", true, 5, " A young shepherd named Santiago embarks on a journey to discover his personal legend, learning about the importance of following one's dreams and listening to one's heart along the way.", "978-0062315007", "", 30.0, 15.0, 22.0, 18.0, "The Alchemist" },
                     { 5, " F. Scott Fitzgerald", true, 6, " Set in the Roaring Twenties, this novel tells the story of Jay Gatsby and his unrequited love for Daisy Buchanan, exploring themes of wealth, class, and the American Dream.", "978-0743273565", "", 49.0, 40.0, 42.0, 45.0, "The Great Gatsby" },
                     { 6, "Stephen King", true, 4, "A chilling tale about Jack Torrance, an aspiring writer and recovering alcoholic who becomes the winter caretaker of the haunted Overlook Hotel, where supernatural forces influence his sanity.", " 978-0307743657", "", 46.0, 27.0, 38.0, 32.0, "The Shining" },
-                    { 7, "Gillian Flynn", true, 2, ": A psychological thriller that explores the complexities of marriage and deception, centering on Nick and Amy Dunne, whose lives unravel when Amy goes missing on their anniversary.", "978-0307588364", "", 50.0, 35.0, 45.0, 40.0, "Gone Girl" }
+                    { 7, "Gillian Flynn", true, 2, " A psychological thriller that explores the complexities of marriage and deception, centering on Nick and Amy Dunne, whose lives unravel when Amy goes missing on their anniversary.", "978-0307588364", "", 50.0, 35.0, 45.0, 40.0, "Gone Girl" }
                 });
 
             migrationBuilder.CreateIndex(
