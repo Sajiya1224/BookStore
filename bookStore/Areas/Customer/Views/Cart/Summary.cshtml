@@ -114,11 +114,59 @@
 							@DateTime.Now.AddDays(7).ToShortDateString() - @DateTime.Now.AddDays(14).ToShortDateString()
 						</p>
 					</div>
-					<div class="col-12 col-md-4">
-						<button type="submit" value="Place Order" class="btn btn-primary form-control">Place Order</button>
+					<div class="col-6 col-md-4">
+
+						<button type="submit" value="Place Order" class="btn btn-primary form-control my-1">pay with stripe</button>
+						<button type="submit" id="payment-button" class="btn btn-primary form-control my-1">Pay with Khalti</button>
 					</div>
+					
 				</div>
 			</div>
 		</div>
 	</div>
 </form>
+
+
+<!-- Include Khalti SDK -->
+<script src="https://khalti.com/static/khalti-checkout.js"></script>
+
+
+
+<script>
+
+		var config = {
+			// replace with your TEST public key
+			"publicKey": "cdcbb8c5610440268e4d5af40f3bbe54",
+				"productIdentity": "@Model.OrderHeader.Id",
+						"productName": "@Model.OrderHeader.Name",
+					"productUrl": "https://localhost:7232",
+				"eventHandler": {
+				onSuccess(payload) {
+					// send payload.token and payload.amount to the server for verification
+					fetch('/Payment/VerifyKhalti', {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json'
+						},
+						body: JSON.stringify(payload)
+					})
+					.then(res => res.json())
+					.then(data => {
+						alert('Payment verified: ' + data.success);
+					});
+				},
+				onError(error) {
+					console.log(error);
+				},
+				onClose() {
+					console.log('Widget is closing');
+				}
+	}
+		};
+
+		var checkout = new KhaltiCheckout(config);
+		var btn = document.getElementById("payment-button");
+		btn.onclick = function () {
+			checkout.show({amount: 1000}); // 1000 paisa = Rs. 10
+		}
+</script>

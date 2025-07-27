@@ -7,12 +7,12 @@ $(function () {
         LoadDataTable("inprocess");
     }
     else {
-        if (url.includes("completed")) {
-            LoadDataTable("completed");
+        if (url.includes("pending")) {
+            LoadDataTable("pending");
         }
         else {
-            if (url.includes("pending")) {
-                LoadDataTable("pending ");
+            if (url.includes("completed")) {
+                LoadDataTable("completed ");
             }
             else {
                 if (url.includes("approved")) {

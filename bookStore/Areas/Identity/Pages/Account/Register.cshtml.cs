@@ -115,6 +115,7 @@ namespace bookStore.Areas.Identity.Pages.Account
             public IEnumerable<SelectListItem> RoleList { get; set; }
 
             [Required]
+            [RegularExpression(@"^[A-Za-z][A-Za-z\s]*$", ErrorMessage = "Name must start with a letter and contain only letters and spaces.")]
             public string? Name { get; set; }
             public string? StreetAddress { get; set; }
             public string? City { get; set; }

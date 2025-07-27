@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Security.Claims;
 using book.dataAccess.Repository.IRepository;
 using book.Model;
+using book.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -50,15 +51,19 @@ namespace bookStore.Areas.client.Controllers
             {
                 cartFromDb.Count += shoppingCart.Count;
                 _unitOfWork.shoppingCart.Update(cartFromDb);
+                _unitOfWork.Save();
                 TempData["success"] = "Cart update";
             }
             else
             {
                 _unitOfWork.shoppingCart.Add(shoppingCart);
+                _unitOfWork.Save();
+                HttpContext.Session.SetInt32(SD.SessionCart,
+                    _unitOfWork.shoppingCart.Get(u => u.ApplicationUserId == UserId).Count);
                 TempData["success"] = "Item added to cart";
             }
 
-            _unitOfWork.Save();
+           
             return RedirectToAction(nameof(Index));
         }
 
