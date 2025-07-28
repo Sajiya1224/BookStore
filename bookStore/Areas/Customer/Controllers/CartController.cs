@@ -212,6 +212,8 @@ namespace bookStore.Areas.Customer.Controllers
             if(cartFromDb.Count <= 1)
             {//removing the only item 
                 _unitOfWork.shoppingCart.Remove(cartFromDb);
+                HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.shoppingCart
+                    .GetAll(u => u.ApplicationUserId == cartFromDb.ApplicationUserId).Count() - 1);
             }
             else
             {
@@ -226,6 +228,8 @@ namespace bookStore.Areas.Customer.Controllers
         {
             var cartFromDb = _unitOfWork.shoppingCart.Get(u => u.Id == cartId);
             _unitOfWork.shoppingCart.Remove(cartFromDb);
+            HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.shoppingCart
+                .GetAll(u => u.ApplicationUserId == cartFromDb.ApplicationUserId).Count() - 1);
             _unitOfWork.Save();
             return RedirectToAction(nameof(Index));
         }

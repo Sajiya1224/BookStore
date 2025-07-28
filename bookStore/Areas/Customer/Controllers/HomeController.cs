@@ -52,14 +52,14 @@ namespace bookStore.Areas.client.Controllers
                 cartFromDb.Count += shoppingCart.Count;
                 _unitOfWork.shoppingCart.Update(cartFromDb);
                 _unitOfWork.Save();
-                TempData["success"] = "Cart update";
+                TempData["success"] = "Cart updated successfully";
             }
             else
             {
                 _unitOfWork.shoppingCart.Add(shoppingCart);
                 _unitOfWork.Save();
                 HttpContext.Session.SetInt32(SD.SessionCart,
-                    _unitOfWork.shoppingCart.Get(u => u.ApplicationUserId == UserId).Count);
+                    _unitOfWork.shoppingCart.GetAll(u => u.ApplicationUserId == UserId).Count());
                 TempData["success"] = "Item added to cart";
             }
 
