@@ -13,7 +13,10 @@ namespace book.dataAccess.data
         public DbSet<Category> categories { get; set; }
         public DbSet<Product> products { get; set; }
         public DbSet<Company> Companies { get; set; }
+        public DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<OrderHeader> OrderHeaders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
 
         protected override void OnModelCreating (ModelBuilder modelBuilder)
         {
@@ -164,7 +167,7 @@ namespace book.dataAccess.data
                  Id = 7,
                  Title = "Gone Girl",
                  Author = "Gillian Flynn",
-                 Description = ": A psychological thriller that explores the complexities of marriage and deception, centering on Nick and Amy Dunne, whose lives unravel when Amy goes missing on their anniversary.",
+                 Description = " A psychological thriller that explores the complexities of marriage and deception, centering on Nick and Amy Dunne, whose lives unravel when Amy goes missing on their anniversary.",
                  ISBN = "978-0307588364",
                  ListPrice = 50,
                  Price100 = 45,

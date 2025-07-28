@@ -115,6 +115,7 @@ namespace bookStore.Areas.Identity.Pages.Account
             public IEnumerable<SelectListItem> RoleList { get; set; }
 
             [Required]
+            [RegularExpression(@"^[A-Za-z][A-Za-z\s]*$", ErrorMessage = "Name must start with a letter and contain only letters and spaces.")]
             public string? Name { get; set; }
             public string? StreetAddress { get; set; }
             public string? City { get; set; }
@@ -173,6 +174,12 @@ namespace bookStore.Areas.Identity.Pages.Account
                 user.City = Input.City;
                 user.PostalCode = Input.PostalCode;
                 user.PhoneNumber = Input.PhoneNumber;
+
+                if(Input.Role == SD.Role_Company)
+                {
+                    user.CompanyId = Input.companyId;
+                }
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
@@ -207,7 +214,15 @@ namespace bookStore.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        if(User.IsInRole(SD.Role_Admin))
+                        {
+                            TempData["Success"] = "New User Created";
+                        }
+                        else
+                        {
+                            await _signInManager.SignInAsync(user, isPersistent: false);
+                        }
+
                         return LocalRedirect(returnUrl);
                     }
                 }

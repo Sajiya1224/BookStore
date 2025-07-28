@@ -12,5 +12,20 @@ namespace book.Utility
         public const string Role_Company = "Company";
         public const string Role_Admin = "Admin";
         public const string Role_Employee = "Employee";
+
+        public const string StatusPending = "Pending";
+        public const string StatusApproved = "Approved";
+        public const string StatusInProcess = "InProcess";
+        public const string StatusShipped = "Shipped";
+        public const string StatusCancelled = "Cancelled";
+        public const string StatusRefund = "Refund";
+
+        public const string PaymentStatusPending = "Pending";
+        public const string PaymentStatusApproved = "Approved";
+        public const string PaymentStatusDelayedPayment = "Approved for Delayed Payment";
+        public const string PaymentStatusReject = "Reject";
+
+
+        public const string SessionCart = "SessionShoppingCart";
     }
 }
