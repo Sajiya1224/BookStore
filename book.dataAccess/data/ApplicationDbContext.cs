@@ -81,7 +81,7 @@ namespace book.dataAccess.data
                      Price = 18, 
                      Availability=true,
                      CategoryId = 5,
-                     ImgUrl=""
+                     ImgUrl="/Images/product/1101442f-3709-4795-b24b-20823feaa2b5.jpg"
                  },
 
                  new Product
@@ -97,7 +97,7 @@ namespace book.dataAccess.data
                      Price = 28,
                      Availability = true,
                      CategoryId = 2,
-                     ImgUrl = ""
+                     ImgUrl = "/Images/product/2d43d0e3-3050-4f81-86c6-da72789d8325.jpg"
                  },
 
             new Product
@@ -113,7 +113,7 @@ namespace book.dataAccess.data
                      Price = 49,
                      Availability = true,
                      CategoryId = 3,
-                     ImgUrl = ""
+                     ImgUrl = "/Images/product/5db25f79-489d-418d-a05e-4516e28233d4.jpg"
                  },
             new Product
             {
@@ -128,7 +128,7 @@ namespace book.dataAccess.data
                 Price = 15,
                 Availability = true,
                 CategoryId = 5,
-                ImgUrl = ""
+                ImgUrl = "/Images/product/90349c89-d598-4e6a-a2cc-5ad2e8bb5cf0.jpg"
             },
 
             new Product
@@ -144,7 +144,7 @@ namespace book.dataAccess.data
                 Price = 40,
                 Availability = true,
                 CategoryId = 6,
-                ImgUrl = ""
+                ImgUrl = "/Images/product/94c0cad0-2a14-4cdb-8ca0-bd81c6782c00.jpg"
             },
             new Product
              {
@@ -159,7 +159,7 @@ namespace book.dataAccess.data
                  Price = 27,
                  Availability = true,
                  CategoryId = 4,
-                 ImgUrl = ""
+                 ImgUrl = "/Images/product/ab2bf287-b312-4b69-9837-771a9b44b07e.jpg"
              },
 
              new Product
@@ -175,7 +175,7 @@ namespace book.dataAccess.data
                  Price = 35,
                  Availability = true,
                  CategoryId = 2,
-                 ImgUrl = ""
+                 ImgUrl = "/Images/product/c22de649-0034-4208-b43a-f29dc584cc90.jpg"
              }
                 );
 

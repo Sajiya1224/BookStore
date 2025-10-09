@@ -10,8 +10,17 @@
         <h2 class="text-white">Product List</h2>
     </div>
 
-    <div class="col-12 p-2 text-end">
-        <a class="btn btn-success" asp-controller="Product" asp-action="Upsert"> <i class="bi bi-plus-circle"> Add Product</i></a>
+    <div class="col-12 p-2 d-flex justify-content-between">
+        <div>
+            <form asp-area="Admin" asp-controller="AiSummary" asp-action="GenerateForAll" method="post" class="d-inline">
+                <button type="submit" class="btn btn-info" onclick="return confirm('This will generate AI summaries for all products without summaries. This may take some time. Continue?')">
+                    <i class="bi bi-stars"></i> Generate All AI Summaries
+                </button>
+            </form>
+        </div>
+        <div>
+            <a class="btn btn-success" asp-controller="Product" asp-action="Upsert"> <i class="bi bi-plus-circle"> Add Product</i></a>
+        </div>
     </div>
 
 

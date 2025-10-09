@@ -41,6 +41,9 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
+// Temporarily using MockAiService due to OpenAI quota exceeded
+builder.Services.AddScoped<IAiService, MockAiService>();
+// builder.Services.AddHttpClient<IAiService, OpenAiService>();
 
 //// Set up Nepali culture with custom currency symbol
 //var nepaliCulture = new CultureInfo("ne-NP");

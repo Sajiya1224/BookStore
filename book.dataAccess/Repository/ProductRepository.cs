@@ -31,6 +31,8 @@ namespace book.dataAccess.Repository
                 objFromDb.Price100 = obj.Price100;
                 objFromDb.ListPrice = obj.ListPrice;
                 objFromDb.CategoryId = obj.CategoryId;
+                // Persist AI summary updates as well
+                objFromDb.AiSummary = obj.AiSummary;
                 if (obj.ImgUrl != null)
                 {
                     objFromDb.ImgUrl = obj.ImgUrl;

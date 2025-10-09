@@ -471,6 +471,9 @@ namespace book.dataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("AiSummary")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Author")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
@@ -529,7 +532,7 @@ namespace book.dataAccess.Migrations
                             CategoryId = 5,
                             Description = "Charlie and the Chocolate Factory is a 1964 children's novel by British author Roald Dahl.",
                             ISBN = "978-0142410318",
-                            ImgUrl = "",
+                            ImgUrl = "/Images/product/1101442f-3709-4795-b24b-20823feaa2b5.jpg",
                             ListPrice = 30.0,
                             Price = 18.0,
                             Price100 = 25.0,
@@ -544,7 +547,7 @@ namespace book.dataAccess.Migrations
                             CategoryId = 2,
                             Description = "Harry Potter is a globally recognized fictional character and the main protagonist of J.K.",
                             ISBN = "FOT000000001",
-                            ImgUrl = "",
+                            ImgUrl = "/Images/product/2d43d0e3-3050-4f81-86c6-da72789d8325.jpg",
                             ListPrice = 40.0,
                             Price = 28.0,
                             Price100 = 35.0,
@@ -559,7 +562,7 @@ namespace book.dataAccess.Migrations
                             CategoryId = 3,
                             Description = "A novel that explores the history of philosophy through the eyes of a young girl, Sophie, who receives mysterious letters that lead her on a philosophical journey",
                             ISBN = "978-0374530716",
-                            ImgUrl = "",
+                            ImgUrl = "/Images/product/5db25f79-489d-418d-a05e-4516e28233d4.jpg",
                             ListPrice = 55.0,
                             Price = 49.0,
                             Price100 = 44.0,
@@ -574,7 +577,7 @@ namespace book.dataAccess.Migrations
                             CategoryId = 5,
                             Description = " A young shepherd named Santiago embarks on a journey to discover his personal legend, learning about the importance of following one's dreams and listening to one's heart along the way.",
                             ISBN = "978-0062315007",
-                            ImgUrl = "",
+                            ImgUrl = "/Images/product/90349c89-d598-4e6a-a2cc-5ad2e8bb5cf0.jpg",
                             ListPrice = 30.0,
                             Price = 15.0,
                             Price100 = 22.0,
@@ -589,7 +592,7 @@ namespace book.dataAccess.Migrations
                             CategoryId = 6,
                             Description = " Set in the Roaring Twenties, this novel tells the story of Jay Gatsby and his unrequited love for Daisy Buchanan, exploring themes of wealth, class, and the American Dream.",
                             ISBN = "978-0743273565",
-                            ImgUrl = "",
+                            ImgUrl = "/Images/product/94c0cad0-2a14-4cdb-8ca0-bd81c6782c00.jpg",
                             ListPrice = 49.0,
                             Price = 40.0,
                             Price100 = 42.0,
@@ -604,7 +607,7 @@ namespace book.dataAccess.Migrations
                             CategoryId = 4,
                             Description = "A chilling tale about Jack Torrance, an aspiring writer and recovering alcoholic who becomes the winter caretaker of the haunted Overlook Hotel, where supernatural forces influence his sanity.",
                             ISBN = " 978-0307743657",
-                            ImgUrl = "",
+                            ImgUrl = "/Images/product/ab2bf287-b312-4b69-9837-771a9b44b07e.jpg",
                             ListPrice = 46.0,
                             Price = 27.0,
                             Price100 = 38.0,
@@ -619,7 +622,7 @@ namespace book.dataAccess.Migrations
                             CategoryId = 2,
                             Description = " A psychological thriller that explores the complexities of marriage and deception, centering on Nick and Amy Dunne, whose lives unravel when Amy goes missing on their anniversary.",
                             ISBN = "978-0307588364",
-                            ImgUrl = "",
+                            ImgUrl = "/Images/product/c22de649-0034-4208-b43a-f29dc584cc90.jpg",
                             ListPrice = 50.0,
                             Price = 35.0,
                             Price100 = 45.0,

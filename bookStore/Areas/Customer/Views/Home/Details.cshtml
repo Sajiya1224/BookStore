@@ -33,6 +33,17 @@
                         <div class="row ps-2">
                             <h6 class="text-dark text-opacity-50 ">ISBN : @Model.Product.ISBN</h6>
                         </div>
+                        
+                        @if (!string.IsNullOrEmpty(Model.Product.AiSummary))
+                        {
+                            <div class="row ps-2 my-3">
+                                <div class="alert alert-light border-0 shadow-sm" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                    <h6 class="text-white mb-2 fw-bold"><i class="bi bi-stars"></i> AI Summary</h6>
+                                    <p class="mb-0 text-white">@Model.Product.AiSummary</p>
+                                </div>
+                            </div>
+                        }
+                        
                         <div class="row ps-2">
                             <h6 class="text-dark text-opacity-50  pb-2">
                                 List Price:

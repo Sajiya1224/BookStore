@@ -22,6 +22,8 @@ namespace book.Model
         [Column("description")]
         public string Description { get; set; }
 
+        public string? AiSummary { get; set; }
+
         [Required]
         public string ISBN { get; set; }
 
